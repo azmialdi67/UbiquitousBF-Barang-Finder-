@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body onload="getLocation()">
+    <div class='container'>
+                <form>
+                    <p class='h4 mb-4 text-center'>Klik 'Mulai' untuk melanjutkan!!</p>
+                    <p>Aktifkan GPS SmartPhone kalian dan izinkan akses lokasi untuk mendapatkan unique id, silakan reload jika anda belum mengizinkan akses lokasi.</p>
+                    <div class='form-group'>
+                        <label for='ip'>IP Address:</label>
+                        <?!= include(); ?>
+                    </div>
+                    <div class='form-group'>
+                        <label for='unik'>Unique ID:</label><p>silakkan salin unique id anda untuk proses verifikasi jawaban anda nanti.</p>
+                        <input type='text' class='form-control' id='unik' readonly>
+                    </div>
+                    <a type="button" class="btn btn-primary" href='GANTI DENGAN LINK GOOGLE FORM KALIAN' target='_blank'>Mulai</a>
+                </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+    <script>
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      }
+    }
+
+    function makeid() {
+       var result           = '';
+       var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+       var charactersLength = characters.length;
+       for ( var i = 0; i < 7; i++ ) {
+          result += characters.charAt(Math.floor(Math.random() * charactersLength));          
+       }
+       document.getElementById("unik").value = result;
+       return result;
+    }
+
+    function showPosition(position) {
+        google.script.run.processForm(makeid(),position.coords.latitude,position.coords.longitude);
+    }
+    </script>
+</body>
+</html>
+  
