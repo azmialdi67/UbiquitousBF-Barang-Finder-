@@ -1,4 +1,4 @@
- # Perancangan Sistem Berbasis Ubicom Aplikasi BF (Barang Finder) Aplikasi yang Menyediakan Informasi Lengkap Tentang Barang Apapun yang User Cari#
+ # Perancangan Sistem Berbasis Ubicom Aplikasi BF (Barang Finder) Aplikasi yang Menyediakan Informasi Lengkap Tentang Barang Apapun yang User Cari
 
 **Intro**
 
@@ -6,6 +6,7 @@
     <li> Artikel ini membahas aplikasi inspiratif yang bertujuan memudahkan pembeli dalam mencari barang yang murah dan rekomended
  </li>
 </ol>
+ 
 <br>
 
 **Latar Belakang**
