@@ -6,7 +6,6 @@
     <li> Artikel ini membahas aplikasi inspiratif yang bertujuan memudahkan pembeli dalam mencari barang yang murah dan rekomended
  </li>
 </ol>
-  
 <br>
 
 **Latar Belakang**
