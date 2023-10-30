@@ -1,4 +1,4 @@
- # Perancangan Sistem Berbasis Ubicom Aplikasi BF (Barang Finder) Aplikasi yang Menyediakan Informasi Lengkap Tentang Barang Apapun yang User Cari
+ # Perancangan Sistem Berbasis Ubicom Aplikasi BF (Barang Finder) Aplikasi yang Menyediakan Informasi Lengkap Tentang Barang Apapun yang User Cari #
 
 **Intro**
 
@@ -36,7 +36,7 @@
 <br>
 
 **Branding**
- <ul> 
+ <ol> 
    <li> Merk : BF (Barang Finder) </li>
    <li> Inspirasi Merk : Fokus pada Fungsionalitas: “Barang Finder” secara langsung menggambarkan fungsionalitas aplikasi ini, yaitu membantu user untuk mencari barang yang mereka butuhkan. Yang khususkan untuk user karena user dapat memilah-milih barang yang user butuhkan dengan lebih mudah. </li>
    <li> Tagline : Teknologi pencaharian barang </li>
