@@ -73,9 +73,9 @@
 </ul>
 <br>
 
-**Struktur Data**
-**Arsitektur Sistem**
-**Deksripsi Teknologi**
+**Struktur Data** <br>
+**Arsitektur Sistem** <br>
+**Deksripsi Teknologi** <br>
 <ul> 
 <li> Mesin Komputasi <br>
 . Sensor kamera. Sensor kamera adalah salah satu komponen penting untuk membuat aplikasi Augmented Reality (AR) yang dapat menggabungkan gambar digital dengan lingkungan nyata. Sensor kamera berfungsi untuk mengumpulkan data informasi tentang lokasi, orientasi, dan gerakan pengguna, serta objek-objek fisik yang ada di sekitarnya. Data ini kemudian diproses oleh algoritma komputer untuk menghasilkan model 3D, animasi, video, atau grafik yang sesuai dengan konteks AR. <br>
