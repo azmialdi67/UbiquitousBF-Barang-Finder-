@@ -100,15 +100,7 @@
     <button> Link To Figma </button>
   </a> 
 
-
-
-
-
-
-
-
-
-
-
-
-
+**Link Github Pages**
+  <a href="https://azmialdi67.github.io/UbiquitousBF-Barang-Finder-/">
+    <button> Link To Figma </button>
+  </a> 
