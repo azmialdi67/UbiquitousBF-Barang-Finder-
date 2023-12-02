@@ -1,4 +1,4 @@
-<!-- Deskripsi Proyek Barang Finder APP: -->
+Deskripsi Proyek Barang Finder APP:
 
 1. **Nama Proyek: Barang Finder APP**
    - Nama proyek ini adalah "Barang Finder APP," sebuah aplikasi yang dirancang untuk membantu pengguna dalam mencari barang dengan cepat dan efisien.
