@@ -1,0 +1,26 @@
+name: barang_finder_app
+description: Aplikasi Barang Finder App
+
+environment:
+  sdk: '>=2.12.0 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_lints: ^1.0.0
+  cupertino_icons: ^1.0.2
+  http: ^1.1.2
+  url_launcher: ^6.0.6
+  image_picker: ^1.0.4
+  geolocator: ^9.0.2
+  geocoding: ^2.0.0
+  flutter_svg: ^2.0.9
+  image_picker_web: ^3.1.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
