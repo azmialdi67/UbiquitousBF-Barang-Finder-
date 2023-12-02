@@ -102,5 +102,5 @@
 
 **Link Github Pages** <br>
   <a href="https://azmialdi67.github.io/UbiquitousBF-Barang-Finder-/">
-    <button> Link To Figma </button>
+    <button> Link To Github Pages </button>
   </a> 
