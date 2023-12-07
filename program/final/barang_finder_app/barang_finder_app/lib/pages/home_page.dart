@@ -1,7 +1,53 @@
+// ignore_for_file: prefer_const_constructors, avoid_print
+
 import 'package:flutter/material.dart';
 import 'add_product_page.dart'; 
 import '../model/product.dart'; 
 import 'product_detail_page.dart'; 
+
+class CustomSearchDelegate extends SearchDelegate<String> {
+  final List<Product> products;
+
+  CustomSearchDelegate({required this.products});
+
+  // Implementasi metode pencarian
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: const Icon(Icons.clear),
+        onPressed: () {
+          query = '';
+        },
+      ),
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      icon: const Icon(Icons.arrow_back),
+      onPressed: () {
+        close(context, '');
+      },
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    // Implementasi logika pencarian dan tampilkan hasilnya
+    // Di sini, Anda dapat menggunakan query untuk mencari produk yang sesuai
+    // dan menampilkan hasilnya.
+    return Text('Hasil pencarian: $query');
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    // Implementasi saran saat pengguna sedang mengetik
+    // Anda dapat menampilkan produk yang sesuai dengan query atau memberikan saran lainnya.
+    return Text('Saran pencarian');
+  }
+}
 
 class ProductTile extends StatelessWidget {
   final Product product;
@@ -31,7 +77,7 @@ class ProductTile extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key, required List products}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -45,6 +91,19 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Aplikasi Produk'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () async {
+              final String? result = await showSearch<String>(
+                context: context,
+                delegate: CustomSearchDelegate(products: _products),
+              );
+              // Implementasi logika berdasarkan hasil pencarian jika diperlukan
+              print('Hasil pencarian: $result');
+            },
+          ),
+        ],
       ),
       body: _buildProductList(),
       floatingActionButton: FloatingActionButton(
