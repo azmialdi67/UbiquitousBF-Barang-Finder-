@@ -3,6 +3,9 @@ const express = require('express');
 const app = express();
 const db = require('./koneksi/koneksi');
 const rute = require('./rute/rute');  // Import file rute
+const cors = require('cors')
+
+app.use(cors())
 
 const PORT = process.env.PORT || 4000;
 

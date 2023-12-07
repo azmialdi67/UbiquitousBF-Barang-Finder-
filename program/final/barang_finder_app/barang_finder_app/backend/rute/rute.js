@@ -1,7 +1,7 @@
-// routes.js
 const express = require('express');
 const rute = express.Router();
 const db = require('../koneksi/koneksi');
+
 
 // Endpoint untuk mendapatkan data dari tabel 'like'
 rute.get('/likes', (req, res) => {

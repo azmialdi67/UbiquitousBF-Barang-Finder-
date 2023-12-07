@@ -28,6 +28,7 @@ const db = mysql.createConnection({
     });
   
     return db;    
+    
 
   
  module.exports = db
