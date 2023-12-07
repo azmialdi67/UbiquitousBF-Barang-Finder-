@@ -74,6 +74,19 @@
 <br>
 
 **Struktur Data** <br>
+
+<img width="132" alt="Screen Shot 2023-12-07 at 18 00 35" src="https://github.com/azmialdi67/UbiquitousBF-Barang-Finder-/assets/44902085/73248fbf-5bec-45d9-b51c-b0638bc0078b">
+<br>
+
+<img width="140" alt="Screen Shot 2023-12-07 at 18 01 07" src="https://github.com/azmialdi67/UbiquitousBF-Barang-Finder-/assets/44902085/2efd9fe0-6ae4-4fac-9abf-2a6df4bf1b7a">
+<br>
+
+<img width="180" alt="Screen Shot 2023-12-07 at 18 02 02" src="https://github.com/azmialdi67/UbiquitousBF-Barang-Finder-/assets/44902085/59df2889-e0a9-4c9c-8714-b693dfd6716a">
+<br>
+
+<img width="140" alt="Screen Shot 2023-12-07 at 18 02 21" src="https://github.com/azmialdi67/UbiquitousBF-Barang-Finder-/assets/44902085/034872c2-ea25-45fd-a76e-35d14d52729b">
+<br>
+
 **Arsitektur Sistem** <br>
 **Deksripsi Teknologi** <br>
 <ul> 
