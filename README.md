@@ -74,6 +74,8 @@
 <br>
 
 **Struktur Data** <br>
+<img width="1004" alt="Screen Shot 2023-12-07 at 18 03 59" src="https://github.com/azmialdi67/UbiquitousBF-Barang-Finder-/assets/44902085/b53b194d-a728-4610-80bb-ab027426416f">
+<br>
 
 <img width="132" alt="Screen Shot 2023-12-07 at 18 00 35" src="https://github.com/azmialdi67/UbiquitousBF-Barang-Finder-/assets/44902085/73248fbf-5bec-45d9-b51c-b0638bc0078b">
 <br>
