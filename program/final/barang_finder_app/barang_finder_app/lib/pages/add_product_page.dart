@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors, avoid_print
+
 import 'dart:io' show File;
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -6,20 +8,16 @@ import 'package:geolocator/geolocator.dart';
 import '../model/product.dart';
 
 class AddProductPage extends StatefulWidget {
-  final Product product;
-
-  const AddProductPage({Key? key, required this.product}) : super(key: key);
-
   @override
   _AddProductPageState createState() => _AddProductPageState();
 }
 
 class _AddProductPageState extends State<AddProductPage> {
   XFile? pickedImage;
-  XFile? storeImage;
   String location = '';
-  TextEditingController storeNameController = TextEditingController();
-  TextEditingController storeDetailController = TextEditingController();
+  TextEditingController productNameController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  TextEditingController hargaController = TextEditingController();
 
   Future<void> _pickImage() async {
     XFile? image;
@@ -30,25 +28,8 @@ class _AddProductPageState extends State<AddProductPage> {
     }
 
     if (image != null) {
-      widget.product.imagePath = image.path;
-
       setState(() {
         pickedImage = image;
-      });
-    }
-  }
-
-  Future<void> _pickStoreImage() async {
-    XFile? image;
-    if (kIsWeb) {
-      image = await ImagePicker().pickImage(source: ImageSource.gallery);
-    } else {
-      image = await ImagePicker().pickImage(source: ImageSource.gallery);
-    }
-
-    if (image != null) {
-      setState(() {
-        storeImage = image;
       });
     }
   }
@@ -61,12 +42,9 @@ class _AddProductPageState extends State<AddProductPage> {
 
       setState(() {
         location = _getGoogleMapsLink(position.latitude, position.longitude);
-        widget.product.location = location;
       });
     } catch (e) {
-      // ignore: avoid_print
       print('Error getting location: $e');
-      // Handle error getting location
     }
   }
 
@@ -87,22 +65,20 @@ class _AddProductPageState extends State<AddProductPage> {
           children: [
             TextFormField(
               decoration: const InputDecoration(labelText: 'Nama Produk'),
-              onChanged: (value) {
-                setState(() {
-                  widget.product.name = value;
-                });
-              },
+              controller: productNameController,
+            ),
+            const SizedBox(height: 12),
+
+            TextFormField(
+              decoration: const InputDecoration(labelText: 'Deskripsi Produk'),
+              controller: descriptionController,
             ),
             const SizedBox(height: 12),
 
             TextFormField(
               decoration: const InputDecoration(labelText: 'Harga Produk'),
               keyboardType: TextInputType.number,
-              onChanged: (value) {
-                setState(() {
-                  widget.product.price = double.tryParse(value) ?? 0.0;
-                });
-              },
+              controller: hargaController,
             ),
             const SizedBox(height: 12),
 
@@ -115,28 +91,6 @@ class _AddProductPageState extends State<AddProductPage> {
                 ),
               ),
               controller: TextEditingController(text: location),
-            ),
-            const SizedBox(height: 12),
-
-            TextFormField(
-              decoration: const InputDecoration(labelText: 'Detail Produk'),
-              onChanged: (value) {
-                setState(() {
-                  widget.product.detail = value;
-                });
-              },
-            ),
-            const SizedBox(height: 12),
-
-            TextFormField(
-              decoration: const InputDecoration(labelText: 'Nama Toko'),
-              controller: storeNameController,
-            ),
-            const SizedBox(height: 12),
-
-            TextFormField(
-              decoration: const InputDecoration(labelText: 'Detail Toko'),
-              controller: storeDetailController,
             ),
             const SizedBox(height: 20),
 
@@ -156,34 +110,14 @@ class _AddProductPageState extends State<AddProductPage> {
             const SizedBox(height: 20),
 
             ElevatedButton(
-              onPressed: _pickStoreImage,
-              child: const Text('Pilih Foto untuk Toko'),
-            ),
-
-            const SizedBox(height: 20),
-
-            storeImage != null
-                ? (kIsWeb
-                    ? Image.network(storeImage!.path)
-                    : Image.file(File(storeImage!.path)))
-                : const SizedBox.shrink(),
-
-            const SizedBox(height: 20),
-
-            ElevatedButton(
               onPressed: () {
                 final addedProduct = Product(
-                  name: widget.product.name,
-                  price: widget.product.price,
-                  location: widget.product.location,
-                  detail: widget.product.detail,
+                  name: productNameController.text,
+                  description: descriptionController.text,
+                  harga: double.tryParse(hargaController.text) ?? 0.0,
+                  location: location,
                   imagePath: pickedImage?.path,
-                  storeName: storeNameController.text,
-                  storeDetail: storeDetailController.text,
-                  storeImagePath: 
-                  storeImage!.path, 
-                  storeAddress: '', 
-                  storePhoneNumber: '',
+                  createdAt: DateTime.now(),
                 );
                 Navigator.pop(context, addedProduct);
               },

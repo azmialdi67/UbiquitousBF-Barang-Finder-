@@ -1,30 +1,30 @@
 // product.dart
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 class Product {
   String name;
-  double price;
+  String description; // changed from double price to String description
+  double harga; // changed from double price to double harga
   String location;
-  String detail;
   String? imagePath;
-  String storeName;
-  String storeDetail;
-  String storeImagePath;
-  String storeAddress;
-  String storePhoneNumber;
-  // double latitude; // Add latitude property
-  // double longitude; // Add longitude property
+  DateTime createdAt;
+
+  var productName;
+
+  var lokasi;
+
+  var fotoBarang;
+
+  var storeImagePath; // Added createdAt property
+  // Add other properties as needed
 
   Product({
     required this.name,
-    required this.price,
+    required this.description,
+    required this.harga,
     required this.location,
-    required this.detail,
     this.imagePath,
-    required this.storeName,
-    required this.storeDetail,
-    required this.storeImagePath,
-    required this.storeAddress,
-    required this.storePhoneNumber,
-    // required this.latitude,
-    // required this.longitude,
+    required this.createdAt,
+    // Initialize other properties here
   });
 }
