@@ -1,9 +1,11 @@
 // ignore_for_file: prefer_const_constructors, avoid_print
 
 import 'package:flutter/material.dart';
-import 'add_product_page.dart'; 
-import '../model/product.dart'; 
-import 'product_detail_page.dart'; 
+import 'add_product_page.dart';
+import '../model/product.dart';
+import 'product_detail_page.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class CustomSearchDelegate extends SearchDelegate<String> {
   final List<Product> products;
@@ -59,7 +61,7 @@ class ProductTile extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       child: ListTile(
-        title: Text(product.name),
+        title: Text(product.productName ?? ''),
         subtitle: Text('Harga: Rp. ${product.harga}'),
         onTap: () {
           _navigateToProductDetail(context, product);
@@ -84,7 +86,38 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<Product> _products = [];
+  List<Product> _products = [];
+
+  @override
+  void initState() {
+    super.initState();
+    // Panggil fungsi untuk mendapatkan produk dari API saat halaman dimuat
+    _getProductsFromAPI();
+  }
+
+  Future<void> _getProductsFromAPI() async {
+    final apiUrl = Uri.parse('http://localhost:4000/product_posts'); // Ganti dengan URL API Anda
+    try {
+      final response = await http.get(apiUrl);
+
+      if (response.statusCode == 200) {
+        final List<dynamic> responseData = jsonDecode(response.body);
+        final List<Product> products = responseData
+            .map((dynamic item) => Product.fromJson(item))
+            .cast<Product>() // Menambahkan casting ke tipe Product
+            .toList();
+
+        setState(() {
+          _products = products;
+        });
+      } else {
+        print('Failed to get products. Error: ${response.statusCode}');
+        // Tambahkan logika penanganan kesalahan jika diperlukan
+      }
+    } catch (error) {
+      print('Error: $error');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -121,9 +154,34 @@ class _HomePageState extends State<HomePage> {
     );
 
     if (result != null && result is Product) {
+      // Upload produk yang ditambahkan ke API
+      _uploadProduct(result);
+
       setState(() {
         _products.add(result);
       });
+    }
+  }
+
+  Future<void> _uploadProduct(Product product) async {
+    final apiUrl = Uri.parse('http://localhost:4000/posts');
+    try {
+      final response = await http.post(
+        apiUrl,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(product.toJson()),
+      );
+
+      if (response.statusCode == 200) {
+        print('Product uploaded successfully!');
+        // Tambahkan logika lain jika diperlukan setelah upload
+        _getProductsFromAPI(); // Perbarui daftar produk setelah menambahkan produk baru
+      } else {
+        print('Failed to upload product. Error: ${response.statusCode}');
+        // Tambahkan logika penanganan kesalahan jika diperlukan
+      }
+    } catch (error) {
+      print('Error: $error');
     }
   }
 

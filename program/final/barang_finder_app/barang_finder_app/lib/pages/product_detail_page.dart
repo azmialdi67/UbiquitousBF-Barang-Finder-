@@ -1,3 +1,4 @@
+// product_detail_page.dart
 // ignore_for_file: avoid_web_libraries_in_flutter
 
 import 'package:flutter/material.dart';
@@ -8,6 +9,12 @@ class ProductDetailPage extends StatelessWidget {
   final Product product;
 
   const ProductDetailPage({Key? key, required this.product}) : super(key: key);
+
+  // Fungsi untuk membuka Google Maps
+  void _openGoogleMaps(String location) {
+    final url = 'https://www.google.com/maps/place/$location';
+    html.window.open(url, 'Google Maps');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +29,7 @@ class ProductDetailPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Nama Produk: ${product.name}',
+                'Nama Produk: ${product.productName}',
                 style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 12),
@@ -48,31 +55,31 @@ class ProductDetailPage extends StatelessWidget {
                   height: 200,
                   fit: BoxFit.contain,
                 ),
-              if (product.fotoBarang != null)
+              if (product.imagePath != null)
                 Image.network(
-                  Uri.parse(product.fotoBarang!).toString(),
+                  Uri.parse(product.imagePath!).toString(),
                   width: double.infinity,
                   height: 200,
                   fit: BoxFit.contain,
                 ),
               const SizedBox(height: 20),
               // Tampilkan gambar toko jika tersedia
-              if (product.storeImagePath != null)
+              if (product.imagePath != null)
                 IconButton(
                   icon: Image.network(
-                    Uri.parse(product.storeImagePath).toString(),
+                    Uri.parse(product.imagePath!).toString(),
                     width: 40,
                     height: 40,
                     fit: BoxFit.cover,
                   ),
                   onPressed: () {
-                    _openGoogleMaps(product.location);
+                    _openGoogleMaps(product.location as String);
                   },
                 ),
               const SizedBox(height: 20),
               ElevatedButton.icon(
                 onPressed: () {
-                  _openGoogleMaps(product.location);
+                  _openGoogleMaps(product.location as String);
                 },
                 icon: const Icon(Icons.store),
                 label: const Text('Toko'),
@@ -82,11 +89,5 @@ class ProductDetailPage extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  // Fungsi untuk membuka Google Maps
-  void _openGoogleMaps(String location) {
-    final url = 'https://www.google.com/maps/place/$location';
-    html.window.open(url, 'Google Maps');
   }
 }

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:image_picker/image_picker.dart';
 import 'package:geolocator/geolocator.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import '../model/product.dart';
 
 class AddProductPage extends StatefulWidget {
@@ -112,14 +114,14 @@ class _AddProductPageState extends State<AddProductPage> {
             ElevatedButton(
               onPressed: () {
                 final addedProduct = Product(
-                  name: productNameController.text,
+                  productName: productNameController.text,
                   description: descriptionController.text,
                   harga: double.tryParse(hargaController.text) ?? 0.0,
                   location: location,
                   imagePath: pickedImage?.path,
                   createdAt: DateTime.now(),
                 );
-                Navigator.pop(context, addedProduct);
+                _uploadProduct(addedProduct);
               },
               child: const Text('Tambah Produk'),
             ),
@@ -127,5 +129,23 @@ class _AddProductPageState extends State<AddProductPage> {
         ),
       ),
     );
+  }
+
+  Future<void> _uploadProduct(Product product) async {
+    final apiUrl = Uri.parse('http://localhost:4000/product_posts'); 
+    final response = await http.post(
+      apiUrl,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(product.toJson()),
+    );
+
+    if (response.statusCode == 200) {
+      print('Product uploaded successfully!');
+      // Tambahkan logika lain jika diperlukan setelah upload
+      Navigator.pop(context, product);
+    } else {
+      print('Failed to upload product. Error: ${response.statusCode}');
+      // Tambahkan logika penanganan kesalahan jika diperlukan
+    }
   }
 }
