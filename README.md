@@ -90,6 +90,8 @@
 <br>
 
 **Arsitektur Sistem** <br>
+![Final](https://github.com/azmialdi67/UbiquitousBF-Barang-Finder-/assets/44902085/bcfb7eea-e56e-43aa-a3f9-451f42b3dc44) <br>
+
 **Deksripsi Teknologi** <br>
 <ul> 
 <li> Mesin Komputasi <br>
