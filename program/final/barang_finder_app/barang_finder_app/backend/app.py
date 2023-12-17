@@ -5,11 +5,9 @@ from flask_marshmallow import Marshmallow
 from datetime import datetime
 import mysql.connector
 
-# Inisialisasi aplikasi Flask
 app = Flask(__name__)
 CORS(app)
 
-# Konfigurasi database MySQL
 mydb = mysql.connector.connect(
     host="localhost",
     user="root",
@@ -17,29 +15,10 @@ mydb = mysql.connector.connect(
     database="barang_finder_app"
 )
 
-# Membuat objek SQLAlchemy
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:123@localhost/barang_finder_app'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
-
-# Definisi Model SQLAlchemy
-class Like(db.Model):
-    __tablename__ = 'likes'
-    like_id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
-    post_id = db.Column(db.Integer, db.ForeignKey('post.post_id'))
-    product_post_id = db.Column(db.Integer, db.ForeignKey('product_post.product_post_id'))
-    latitude = db.Column(db.Float)
-    longitude = db.Column(db.Float)
-
-class Post(db.Model):
-    __tablename__ = 'post'
-    post_id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
-    content = db.Column(db.Text)
-    created_at = db.Column(db.TIMESTAMP)
-    user = db.relationship('User', backref=db.backref('posts', lazy=True))
 
 class ProductPost(db.Model):
     __tablename__ = 'product_post'
@@ -47,7 +26,7 @@ class ProductPost(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
     product_name = db.Column(db.String(255))
     description = db.Column(db.Text)
-    harga_barang = db.Column(db.Float)
+    harga = db.Column(db.Float)
     lokasi_barang = db.Column(db.String(255))
     foto_barang = db.Column(db.String(255))
     created_at = db.Column(db.TIMESTAMP)
@@ -61,15 +40,6 @@ class User(db.Model):
     password = db.Column(db.String(255))
     created_at = db.Column(db.TIMESTAMP)
 
-# Definisi Marshmallow Schemas
-class LikeSchema(ma.SQLAlchemyAutoSchema):
-    class Meta:
-        model = Like
-
-class PostSchema(ma.SQLAlchemyAutoSchema):
-    class Meta:
-        model = Post
-
 class ProductPostSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = ProductPost
@@ -78,31 +48,8 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = User
 
-like_schema = LikeSchema()
-post_schema = PostSchema()
 product_post_schema = ProductPostSchema()
 user_schema = UserSchema()
-
-# Rute Flask
-@app.route('/likes', methods=['GET'])
-def get_likes():
-    likes = Like.query.all()
-    return jsonify(like_schema.dump(likes, many=True))
-
-@app.route('/posts', methods=['GET'])
-def get_posts():
-    posts = Post.query.all()
-    return jsonify(post_schema.dump(posts, many=True))
-
-@app.route('/product_posts', methods=['GET'])
-def get_product_posts():
-    product_posts = ProductPost.query.all()
-    return jsonify(product_post_schema.dump(product_posts, many=True))
-
-@app.route('/users', methods=['GET'])
-def get_users():
-    users = User.query.all()
-    return jsonify(user_schema.dump(users, many=True))
 
 @app.route('/get_products', methods=['GET'])
 def get_products():

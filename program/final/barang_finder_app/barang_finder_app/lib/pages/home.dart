@@ -53,7 +53,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Product List'),
+        title: const Text('Barang Finder App'),
       ),
       body: ListView.builder(
         itemCount: products.length,
