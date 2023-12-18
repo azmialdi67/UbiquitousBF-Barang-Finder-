@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, deprecated_member_use, unnecessary_cast
 
 import 'package:barang_finder_app/model/product.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +8,12 @@ class Detail extends StatelessWidget {
   final Product product;
 
   const Detail({Key? key, required this.product}) : super(key: key);
+
+  Future<String?> getImage() async {
+    // Anda perlu mengembalikan URL gambar dari sumber yang sesuai.
+    // Misalnya, langsung mengembalikan product.imagePath jika valid.
+    return product.imagePath as String?;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,26 +40,32 @@ class Detail extends StatelessWidget {
               onTap: () {
                 // Buka link Google Maps saat lokasi ditekan
                 if (product.location != null && product.location!.isNotEmpty) {
-                  // Dengan package url_launcher, pastikan Anda sudah menambahkannya pada file pubspec.yaml
-                  // Tambahkan dependency: url_launcher: ^6.0.6 pada bagian dependencies
-                  // Kemudian jalankan flutter pub get di terminal
                   launch(product.location!);
                 }
               },
               child: Text(
-                'Location: ${product.location ?? 'Location not available'}',
+                'Location: ${product.location as String? ?? 'Location not available'}',
                 style: TextStyle(fontSize: 18, color: Colors.blue),
               ),
             ),
             SizedBox(height: 10),
-            product.imagePath != null
-                ? Image.network(
-                    product.imagePath!,
+            FutureBuilder(
+              future: getImage(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return Image.network(
+                    snapshot.data as String? ?? '',
                     width: 200,
                     height: 200,
                     fit: BoxFit.cover,
-                  )
-                : Container(), // Tampilkan gambar hanya jika imagePath tidak null
+                  );
+                } else if (snapshot.hasError) {
+                  return Text('Error loading image');
+                } else {
+                  return CircularProgressIndicator();
+                }
+              },
+            ),
           ],
         ),
       ),
